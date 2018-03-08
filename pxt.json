@@ -1,7 +1,7 @@
 {
     "name": "FourDigitDisplay",
     "version": "1.0.0",
-    "description": "makecode Four Digit Display (TM1650) package for micro:bit",
+    "description": "makecode 4 位数码管显示 (TM1650) 的 microbit 软件包",
     "license": "MIT",
     "dependencies": {
         "core": "*"
