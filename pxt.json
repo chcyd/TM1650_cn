@@ -1,7 +1,7 @@
 {
     "name": "FourDigitDisplay",
     "version": "1.0.0",
-    "description": "makecode 4 Î»ÊıÂë¹ÜÏÔÊ¾ (TM1650) µÄ microbit Èí¼ş°ü",
+    "description": "makecode 4 ä½æ•°ç ç®¡æ˜¾ç¤º (TM1650) çš„ microbit è½¯ä»¶åŒ…",
     "license": "MIT",
     "dependencies": {
         "core": "*"
