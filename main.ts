@@ -5,14 +5,14 @@
  */
 
 /**
- * Four Digit Display 模块
+ * TM1650 数码管模块
  */
-//% weight=100 color=#64C800 icon="日"
+//% weight=100 color=#64C800 icon="8" block="TM1650"
 namespace TM1650 {
 
     let COMMAND_I2C_ADDRESS = 0x24
     let DISPLAY_I2C_ADDRESS = 0x34
-    let buf = [0x3F, 0x06, 0x5B, 0x4F, 0x66, 0x6D, 0x7D, 0x07, 0x7F, 0x6F, 0x77, 0x7C, 0x39, 0x5E, 0x79, 0x71];
+    let _SEG = [0x3F, 0x06, 0x5B, 0x4F, 0x66, 0x6D, 0x7D, 0x07, 0x7F, 0x6F, 0x77, 0x7C, 0x39, 0x5E, 0x79, 0x71];
 
     let _intensity = 3
     let dbuf = [0, 0, 0, 0]
@@ -34,27 +34,30 @@ namespace TM1650 {
     }
 
     /**
-     * 打开显示功能
+     * turn on display
      */
-    //% block
-    export function 打开() {
+    //% blockId="TM650_ON" block="打开"
+    //% weight=50 blockGap=8
+    export function on() {
         cmd(_intensity * 16 + 1)
     }
 
     /**
-     * 关闭显示功能
+     * turn off display
      */
-    //% block
-    export function 关闭() {
+    //% blockId="TM650_OFF" block="关闭"
+    //% weight=50 blockGap=8
+    export function off() {
         _intensity = 0
         cmd(0)
     }
 
     /**
-     * 清除显示内容
+     * clear display content
      */
-    //% block
-    export function 清除() {
+    //% blockId="TM650_CLEAR" block="清除"
+    //% weight=40 blockGap=8
+    export function clear() {
         dat(0, 0)
         dat(1, 0)
         dat(2, 0)
@@ -63,77 +66,82 @@ namespace TM1650 {
     }
 
     /**
-     * 在指定位置显示一个数字
-     * @param 数字 (0-15) 是将要显示的参数, eg: 1
-     * @param 位代表显示位置, eg: 0
+     * show a digital in given position
+     * @param digit is number (0-15) will be shown, eg: 1
+     * @param bit is position, eg: 0
      */
-    //% block
+    //% blockId="TM650_DIGIT" block="显示数 %num|在 %bit"
+    //% weight=80 blockGap=8
     //% num.max=15 num.min=0
-    export function 显示(num: number, bit: number) {
-        dbuf[bit % 4] = buf[num % 16]
-        dat(bit, buf[num % 16])
+    export function digit(num: number, bit: number) {
+        dbuf[bit % 4] = _SEG[num % 16]
+        dat(bit, _SEG[num % 16])
     }
 
     /**
-     * 显示一个数字
-     * @param num 代表将要的整数, eg: 100
+     * show a number in display
+     * @param num is number will be shown, eg: 100
      */
-    //% block
-    export function 显示整数(num: number) {
+    //% blockId="TM650_SHOW_NUMBER" block="显示整数 %num"
+    //% weight=100 blockGap=8
+    export function showNumber(num: number) {
         if (num < 0) {
             dat(0, 0x40) // '-'
             num = -num
         }
         else
-            显示((num / 1000) % 10, 0)
-        显示(num % 10, 3)
-        显示((num / 10) % 10, 2)
-        显示((num / 100) % 10, 1)
+            digit((num / 1000) % 10, 0)
+        digit(num % 10, 3)
+        digit((num / 10) % 10, 2)
+        digit((num / 100) % 10, 1)
     }
 
     /**
-     * 显示16进制数字
-     * @param num 代表将要显示的整数, eg: 123
+     * show a number in hex format
+     * @param num is number will be shown, eg: 123
      */
-    //% block
-    export function 显示Hex整数(num: number) {
+    //% blockId="TM650_SHOW_HEX_NUMBER" block="显示16进制整数 %num"
+    //% weight=90 blockGap=8
+    export function ShowHex(num: number) {
         if (num < 0) {
             dat(0, 0x40) // '-'
             num = -num
         }
         else
-            显示((num >> 12) % 16, 0)
-        显示(num % 16, 3)
-        显示((num >> 4) % 16, 2)
-        显示((num >> 8) % 16, 1)
+            digit((num >> 12) % 16, 0)
+        digit(num % 16, 3)
+        digit((num >> 4) % 16, 2)
+        digit((num >> 8) % 16, 1)
     }
 
     /**
-     * 显示或隐藏小数点
-     * @param bit 代表小数点位置, eg: 0
-     * @param show 代表显示或者隐藏, eg: true
+     * show Dot Point in given position
+     * @param bit is positiion, eg: 0
+     * @param show is true/false, eg: true
      */
-    //% block
-    export function 显示小数点(bit: number, show: boolean) {
+    //% blockId="TM650_SHOW_DP" block="显示小数点 %bit|显示 %num"
+    //% weight=80 blockGap=8
+    export function showDpAt(bit: number, show: boolean) {
         if (show) dat(bit, dbuf[bit % 4] | 0x80)
         else dat(bit, dbuf[bit % 4] & 0x7F)
     }
 
     /**
-     * 设置显示亮度
-     * @param dat 代表显示亮度等级，范围[0-8]，0代表关闭，8最亮, eg: 3
+     * set display intensity
+     * @param dat is intensity of the display, eg: 3
      */
-    //% block
-    export function 设置显示亮度(dat: number) {
+    //% blockId="TM650_INTENSITY" block="设置亮度 %dat"
+    //% weight=70 blockGap=8
+    export function setIntensity(dat: number) {
         if ((dat < 0) || (dat > 8))
             return;
         if (dat == 0)
-            关闭()
+            off()
         else {
             _intensity = dat
             cmd((dat << 4) | 0x01)
         }
     }
 
-    打开();
+    on();
 }

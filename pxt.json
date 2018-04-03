@@ -1,7 +1,7 @@
 {
     "name": "TM1650",
-    "version": "1.0.0",
-    "description": "makecode 4 位数码管显示 (TM1650) 的 microbit 软件包",
+    "version": "1.1.0",
+    "description": "makecode TM1650 （4 位数码管显示） 的 microbit 软件包",
     "license": "MIT",
     "dependencies": {
         "core": "*"

@@ -20,30 +20,30 @@ https://github.com/microbit-makecode-packages/TM1650_cn
 
 ## API
 
-- **打开()**  
+- **on()**  
 打开显示功能。  
 
-- **关闭()**  
+- **off()**  
 关闭显示功能（不会影响显示内容）。  
 
-- **清除()**  
+- **clear()**  
 清除显示的内容。  
 
-- **显示(num: number, bit: number)**  
+- **digit(num: number, bit: number)**  
 在指定位置显示一个数字，数字的范围是 0-15。  
 
-- **显示整数(num: number)**  
+- **showNumber(num: number)**  
 显示一个整数，可以是负数。  
 
-- **显示Hex整数(num: number)**  
+- **showHex(num: number)**  
 以16进制方式显示整数。  
 
-- **显示小数点(bit: number, show: boolean)**  
+- **showDpAt(bit: number, show: boolean)**  
 显示或隐藏小数点  
 bit 代表小数点的位置, [0 - 3]  
 show, 代表显示或隐藏, true时显示，false时隐藏  
 
-- **设置显示亮度(dat: number)**  
+- **setIntensity(dat: number)**  
 设置显示亮度。  
 dat 代表亮度，范围是 0 - 8，0代表关闭，8代表最亮。  
 
