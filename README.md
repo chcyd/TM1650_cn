@@ -6,7 +6,7 @@ makecode 4 位数码管显示 (TM1650) 的 microbit 软件包
 作者: chcyd  
 日期: 2020年3月  
 
-![](https://github.com/chcyd/TM1650_cn/master/icon.png)  
+![](./icon.png)  
 
 ## 使用方法
 
@@ -16,7 +16,7 @@ https://github.com/chcyd/TM1650_cn
 
 搜索后就可以添加并使用本软件包了。  
 
-![](https://github.com/chcyd/TM1650_cn/master/4-LED.jpg)
+![](./4-LED.jpg)
 
 ## API
 
@@ -49,7 +49,7 @@ dat 代表亮度，范围是 0 - 8，0代表关闭，8代表最亮。
 
 ## 演示
 
-![](https://raw.githubusercontent.com/chcyd/TM1650_cn/master/demo.jpg)
+![](./demo.jpg)
 
 ## 授权方式  
 
