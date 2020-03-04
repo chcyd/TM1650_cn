@@ -16,7 +16,7 @@ https://github.com/chcyd/TM1650_cn
 
 搜索后就可以添加并使用本软件包了。  
 
-![](./4-LED.jpg)
+![](./4LED.jpg)
 
 ## API
 
